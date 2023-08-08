@@ -10,6 +10,7 @@ public class TimeOfTrackerApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(TimeOfTrackerApplication.class, args);
+		System.out.println("qweqwe");
 	}
 
 }
