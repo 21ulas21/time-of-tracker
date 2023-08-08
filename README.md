@@ -1,2 +1,2 @@
 # time-of-tracker
-time-of-tracker
+time-off-tracker
