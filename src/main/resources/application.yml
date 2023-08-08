@@ -1,6 +1,6 @@
 spring:
   application:
-    name: USER-SERVICE
+    name: TIME-OFF-TRACKER
   main:
     allow-circular-references: true
   datasource:
