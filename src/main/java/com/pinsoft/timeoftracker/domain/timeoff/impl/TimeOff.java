@@ -23,7 +23,7 @@ public class TimeOff extends AbstractEntity {
     private static final String COL_MANAGER_ID = "manager-id";
 
 
-    @Column(name = COL_DESCRIPTION)
+    @Column(name = COL_DESCRIPTION, length = 750)
     private String description;
     @Column(name = COL_START_DATE)
     private Date startDate;

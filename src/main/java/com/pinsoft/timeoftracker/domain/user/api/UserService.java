@@ -1,6 +1,7 @@
 package com.pinsoft.timeoftracker.domain.user.api;
 
-import com.pinsoft.timeoftracker.domain.user.api.UserDto;
+
+import com.pinsoft.timeoftracker.domain.user.impl.UserRole;
 
 import java.util.List;
 
@@ -12,4 +13,7 @@ public interface UserService {
 
     List<UserDto> getUserByManagerRole();
 
+    UserDto changeUserRole(String id, UserRole userRole);
+
+    void deleteUserById(String id);
 }
