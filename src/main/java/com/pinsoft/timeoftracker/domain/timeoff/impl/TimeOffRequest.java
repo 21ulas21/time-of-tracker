@@ -2,6 +2,8 @@ package com.pinsoft.timeoftracker.domain.timeoff.impl;
 
 
 import com.pinsoft.timeoftracker.domain.timeoff.api.TimeOffDto;
+import com.pinsoft.timeoftracker.domain.user.api.UserDto;
+import com.pinsoft.timeoftracker.domain.user.impl.UserRequest;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;
 import lombok.Data;
@@ -10,25 +12,29 @@ import java.util.Date;
 
 @Data
 @Builder
-public class TimeOffRequest{
+public class TimeOffRequest {
 
-    public String description;
+    private final String description;
     @NotBlank(message = "Başlangıç tarihini giriniz")
-    public Date startDate;
+    private final Date startDate;
     @NotBlank(message = "Bitiş tarihini giriniz")
-    public Date endDate;
-    public TimeOffType timeOffType;
+    private final Date endDate;
+    private final TimeOffType timeOffType;
 
-    public TimeOffDto toDto(){
+    private final String employeeId;
+
+    private final String managerId;
+
+    public TimeOffDto toDto() {
         return TimeOffDto.builder()
+                .employeeUser(UserDto.builder().id(employeeId).build())
+                .managerUser(UserDto.builder().id(managerId).build())
                 .timeOffType(timeOffType)
                 .description(description)
                 .endDate(endDate)
                 .startDate(startDate)
                 .build();
-
     }
-
 
 
 }

@@ -7,7 +7,7 @@ import lombok.Data;
 @Builder
 public class AuthenticationResponse {
 
-    private String token;
-    private boolean status;
+    private final String token;
+    private final boolean status;
 
 }

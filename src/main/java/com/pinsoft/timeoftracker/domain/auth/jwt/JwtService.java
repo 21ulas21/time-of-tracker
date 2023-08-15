@@ -7,12 +7,14 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
@@ -33,6 +35,15 @@ public class JwtService {
     public String generateToken(UserDto user) {
         return buildToken(new HashMap<>(), user);
     }
+
+    public boolean isTokenValid(String token, UserDetails userDetails) {
+        final String username = extractUsername(token);
+        return (username.equals(userDetails.getUsername())) && !isTokenExpired(token);
+    }
+    public String getUserRole(String token){
+        Claims claims = extractAllClaims(token);
+       return claims.get("role").toString();
+    }
     private String buildToken(
             Map<String, Object> extraClaims,
             UserDto user
@@ -41,15 +52,14 @@ public class JwtService {
                 .builder()
                 .setClaims(extraClaims)
                 .setSubject(user.getEmail())
+                .claim("userId", user.getId())
+                .claim("role", user.getRole())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + jwtExpiration))
                 .signWith(getSignInKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
-    public boolean isTokenValid(String token, UserDetails userDetails) {
-        final String username = extractUsername(token);
-        return (username.equals(userDetails.getUsername())) && !isTokenExpired(token);
-    }
+    
     private boolean isTokenExpired(String token) {
         return extractExpiration(token).before(new Date());
     }

@@ -8,22 +8,21 @@ import lombok.Data;
 @Builder
 public class UserResponse {
 
-    private String id;
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String password;
+    private final String id;
+    private final String firstName;
+    private final String lastName;
+    private final String email;
+    private final UserRole role;
 
-    public static UserResponse toResponse(UserDto dto){
+    public static UserResponse fromDto(UserDto dto) {
         return UserResponse.builder()
+                .role(dto.getRole())
                 .id(dto.getId())
                 .firstName(dto.getFirstName())
                 .lastName(dto.getLastName())
                 .email(dto.getEmail())
-                .password(dto.getPassword())
                 .build();
     }
-
 
 
 }
