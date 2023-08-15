@@ -8,13 +8,14 @@ import lombok.Data;
 @Builder
 public class UserRequest {
 
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String password;
-    private boolean status;
+    private final String firstName;
+    private final String lastName;
+    private final String email;
+    private final String password;
+    private final boolean status;
 
-    public UserDto toDto(){
+
+    public UserDto toDto() {
         return UserDto.builder()
                 .firstName(firstName)
                 .lastName(lastName)
@@ -23,8 +24,6 @@ public class UserRequest {
                 .status(status)
                 .build();
     }
-
-
 
 
 }

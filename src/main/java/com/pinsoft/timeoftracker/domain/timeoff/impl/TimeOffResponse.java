@@ -10,11 +10,11 @@ import java.util.Date;
 @Builder
 public class TimeOffResponse {
 
-    public String id;
-    public String description;
-    public Date startDate;
-    public Date endDate;
-    public TimeOffType timeOffType;
+    private final String id;
+    private final String description;
+    private final Date startDate;
+    private final Date endDate;
+    private final TimeOffType timeOffType;
 
     public static TimeOffResponse fromDto(TimeOffDto dto){
         return TimeOffResponse.builder()

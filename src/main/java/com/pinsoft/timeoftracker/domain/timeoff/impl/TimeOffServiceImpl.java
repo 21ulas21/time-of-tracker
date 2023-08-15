@@ -2,21 +2,26 @@ package com.pinsoft.timeoftracker.domain.timeoff.impl;
 
 import com.pinsoft.timeoftracker.domain.timeoff.api.TimeOffDto;
 import com.pinsoft.timeoftracker.domain.timeoff.api.TimeOffService;
+import com.pinsoft.timeoftracker.domain.user.impl.UserServiceImpl;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class TimeOffServiceImpl implements TimeOffService {
 
     private final TimeOffRepository repository;
+    private final UserServiceImpl userService;
 
     @Override
     public TimeOffDto createTimeOff(TimeOffDto dto) {
-        TimeOff timeOff = repository.save(toEntity(new TimeOff(),dto));
+        TimeOff timeOff = repository.save(toEntity(new TimeOff(), dto));
         return toDto(timeOff);
     }
 
@@ -25,7 +30,7 @@ public class TimeOffServiceImpl implements TimeOffService {
     public TimeOffDto updateTimeOff(TimeOffDto dto, String id) {
 
         return repository.findById(id)
-                .map(timeOff -> toEntity(timeOff,dto))
+                .map(timeOff -> toEntity(timeOff, dto))
                 .map(repository::save)
                 .map(this::toDto)
                 .orElseThrow(EntityNotFoundException::new);
@@ -50,17 +55,22 @@ public class TimeOffServiceImpl implements TimeOffService {
         return repository.findAll().stream().map(this::toDto).toList();
     }
 
-    public TimeOffDto toDto(TimeOff timeOff){
+    public TimeOffDto toDto(TimeOff timeOff) {
         return TimeOffDto.builder()
                 .startDate(timeOff.getStartDate())
                 .endDate(timeOff.getEndDate())
                 .description(timeOff.getDescription())
                 .id(timeOff.getId())
                 .timeOffType(timeOff.getTimeOffType())
+                .managerUser(userService.toDto(timeOff.getManager()))
+                .employeeUser(userService.toDto(timeOff.getEmployee()))
                 .build();
     }
-    public TimeOff toEntity(TimeOff timeOff, TimeOffDto dto){
 
+    public TimeOff toEntity(TimeOff timeOff, TimeOffDto dto) {
+
+        timeOff.setManager(dto.getManagerUser().getId() == null ? null : userService.getUserEntityById(dto.getManagerUser().getId()));
+        timeOff.setEmployee(dto.getEmployeeUser().getId() == null ? null : userService.getUserEntityById(dto.getEmployeeUser().getId()));
         timeOff.setTimeOffType(dto.getTimeOffType());
         timeOff.setDescription(dto.getDescription());
         timeOff.setStartDate(dto.getStartDate());
@@ -68,12 +78,10 @@ public class TimeOffServiceImpl implements TimeOffService {
 
         return timeOff;
     }
-
-
-
-
-
-
+    public String getAuthenticateUser(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return authentication.getName();
+    }
 
 
 }

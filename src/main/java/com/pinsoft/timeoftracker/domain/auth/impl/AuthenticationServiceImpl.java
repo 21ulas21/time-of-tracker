@@ -5,6 +5,7 @@ import com.pinsoft.timeoftracker.domain.auth.jwt.JwtService;
 import com.pinsoft.timeoftracker.domain.user.api.UserDto;
 import com.pinsoft.timeoftracker.domain.user.impl.User;
 import com.pinsoft.timeoftracker.domain.user.impl.UserRequest;
+import com.pinsoft.timeoftracker.domain.user.impl.UserRole;
 import com.pinsoft.timeoftracker.domain.user.impl.UserServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -40,6 +41,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     public UserDto register(UserRequest request) {
         User user =  userService.toEntity(new User(), request.toDto());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRole(UserRole.EMPLOYEE);
         return userService.createUser(user);
     }
 
