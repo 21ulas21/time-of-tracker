@@ -1,5 +1,6 @@
 package com.pinsoft.timeoftracker.domain.user.impl;
 
+import com.pinsoft.timeoftracker.domain.user.api.UserDto;
 import com.pinsoft.timeoftracker.domain.user.api.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -36,6 +37,18 @@ public class UserController {
                 .map(UserResponse::fromDto)
                 .toList();
         return ResponseEntity.ok(userResponse);
+    }
+    @PutMapping("/update/{id}")
+    public ResponseEntity<UserResponse> updateUserRole(@PathVariable(value = "id") String id, UserRole userRole){
+
+        UserDto user = service.changeUserRole(id, userRole);
+        return ResponseEntity.ok(UserResponse.fromDto(user));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteUser(@PathVariable(value = "id")String id){
+        service.deleteUserById(id);
+        return ResponseEntity.ok().build();
     }
 
 }

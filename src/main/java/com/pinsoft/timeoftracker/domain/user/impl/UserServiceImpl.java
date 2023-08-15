@@ -29,6 +29,10 @@ public class UserServiceImpl implements UserService {
         User user = repository.findByEmail(email).orElseThrow(EntityNotFoundException::new);
         return toDto(user);
     }
+    public User getUserEntityByEmail(String email){
+        return repository.findByEmail(email).orElseThrow(EntityNotFoundException::new);
+    }
+
 
     @Override
     public UserDto updateUser(String id, UserDto userDto) {
@@ -45,6 +49,20 @@ public class UserServiceImpl implements UserService {
                 .stream()
                 .map(this::toDto)
                 .toList();
+    }
+
+    @Override
+    public UserDto changeUserRole(String id, UserRole userRole) {
+
+        User user = repository.findById(id).orElseThrow(EntityNotFoundException::new);
+        user.setRole(userRole);
+        return toDto(repository.save(user));
+    }
+
+    @Override
+    public void deleteUserById(String id) {
+        User user = repository.findById(id).orElseThrow(EntityNotFoundException::new);
+            repository.delete(user);
     }
 
     public User getUserEntityById(String id) {

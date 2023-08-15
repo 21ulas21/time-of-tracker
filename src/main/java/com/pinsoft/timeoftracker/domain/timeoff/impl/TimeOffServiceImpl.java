@@ -2,6 +2,7 @@ package com.pinsoft.timeoftracker.domain.timeoff.impl;
 
 import com.pinsoft.timeoftracker.domain.timeoff.api.TimeOffDto;
 import com.pinsoft.timeoftracker.domain.timeoff.api.TimeOffService;
+import com.pinsoft.timeoftracker.domain.user.impl.User;
 import com.pinsoft.timeoftracker.domain.user.impl.UserServiceImpl;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
@@ -53,6 +54,21 @@ public class TimeOffServiceImpl implements TimeOffService {
     @Override
     public List<TimeOffDto> getAllTimeOff() {
         return repository.findAll().stream().map(this::toDto).toList();
+    }
+
+    @Override
+    public TimeOffDto updateTimeOffType(String id, TimeOffType timeOffType) {
+        TimeOff timeOff = repository.findById(id).orElseThrow(EntityNotFoundException::new);
+        timeOff.setTimeOffType(timeOffType);
+        return toDto(repository.save(timeOff));
+    }
+
+    @Override
+    public List<TimeOffDto> getTimeOffForManager() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.getUserEntityByEmail(authentication.getName());
+      return repository.findTimeOffByManager(user).stream().map(this::toDto).toList();
+
     }
 
     public TimeOffDto toDto(TimeOff timeOff) {

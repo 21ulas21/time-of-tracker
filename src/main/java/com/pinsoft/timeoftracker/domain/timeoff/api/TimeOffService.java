@@ -1,5 +1,7 @@
 package com.pinsoft.timeoftracker.domain.timeoff.api;
 
+import com.pinsoft.timeoftracker.domain.timeoff.impl.TimeOffType;
+
 import java.util.List;
 
 public interface TimeOffService {
@@ -12,4 +14,8 @@ public interface TimeOffService {
     TimeOffDto getTimeOffDto(String id);
 
     List<TimeOffDto> getAllTimeOff();
+
+    TimeOffDto updateTimeOffType(String id, TimeOffType timeOffType);
+
+    List<TimeOffDto> getTimeOffForManager();
 }
