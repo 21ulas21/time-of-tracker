@@ -12,7 +12,7 @@ target/
 .settings
 .springBeans
 .sts4-cache
-.data
+
 
 ### IntelliJ IDEA ###
 .idea
@@ -29,6 +29,7 @@ target/
 build/
 !**/src/main/**/build/
 !**/src/test/**/build/
+/data/
 
 ### VS Code ###
 .vscode/
