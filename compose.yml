@@ -2,15 +2,25 @@ version: '3'
 services:
   postgres:
     image: postgres
+    container_name: postgres
     environment:
-      POSTGRES_DB: postgres
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-    ports:
-      - "5432:5432"
-  myapp:
-    build: .
+      POSTGRES_DB: time-off-tracker
+    volumes:
+      - ./data:/var/lib/postgresql/data
+  springboot:
+    image: springboot
+    container_name: springboot
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      SPRING_DATA_DATABASE: postgres
+      SPRING_DATA_USERNAME: postgres
+      SPRING_DATA_PASSWORD: postgres
+      SPRING_DATA_URL: jdbc:postgresql://postgres:5432/time-off-tracker
     ports:
       - "8080:8080"
     depends_on:
-        - postgres
+      - postgres
