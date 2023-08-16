@@ -2,6 +2,7 @@ package com.pinsoft.timeoftracker.domain.user.impl;
 
 import com.pinsoft.timeoftracker.domain.user.api.UserDto;
 import com.pinsoft.timeoftracker.domain.user.api.UserService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +12,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/users")
 @AllArgsConstructor
+@SecurityRequirement(name = "bearerAuth")
 public class UserController {
 
 
@@ -39,7 +41,7 @@ public class UserController {
         return ResponseEntity.ok(userResponse);
     }
     @PutMapping("/update/{id}")
-    public ResponseEntity<UserResponse> updateUserRole(@PathVariable(value = "id") String id, UserRole userRole){
+    public ResponseEntity<UserResponse> updateUserRole(@PathVariable(value = "id") String id, @RequestBody UserRole userRole){
 
         UserDto user = service.changeUserRole(id, userRole);
         return ResponseEntity.ok(UserResponse.fromDto(user));

@@ -2,6 +2,7 @@ package com.pinsoft.timeoftracker.domain.timeoff.impl;
 
 import com.pinsoft.timeoftracker.domain.timeoff.api.TimeOffDto;
 import com.pinsoft.timeoftracker.domain.timeoff.api.TimeOffService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +12,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/time-off")
 @AllArgsConstructor
+@SecurityRequirement(name = "bearerAuth")
 public class TimeOffController {
 
     private final TimeOffService service;
