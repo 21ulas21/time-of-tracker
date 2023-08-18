@@ -1,7 +1,6 @@
 com\pinsoft\timeoftracker\domain\auth\config\AuthenticationFilter.class
 com\pinsoft\timeoftracker\domain\timeoff\impl\TimeOff.class
 com\pinsoft\timeoftracker\domain\auth\api\AuthenticationService.class
-com\pinsoft\timeoftracker\domain\auth\jwt\TokenRepository.class
 com\pinsoft\timeoftracker\domain\user\impl\UserServiceImpl.class
 com\pinsoft\timeoftracker\domain\user\impl\UserController.class
 com\pinsoft\timeoftracker\domain\user\DefaultUserCreated.class
@@ -25,6 +24,7 @@ com\pinsoft\timeoftracker\domain\timeoff\impl\TimeOffResponse.class
 com\pinsoft\timeoftracker\domain\user\api\UserService.class
 com\pinsoft\timeoftracker\domain\user\impl\UserResponse$UserResponseBuilder.class
 com\pinsoft\timeoftracker\domain\timeoff\api\TimeOffDto$TimeOffDtoBuilder.class
+com\pinsoft\timeoftracker\library\CorsConfig.class
 com\pinsoft\timeoftracker\domain\timeoff\impl\TimeOffServiceImpl.class
 com\pinsoft\timeoftracker\domain\user\impl\UserRepository.class
 com\pinsoft\timeoftracker\library\SwaggerConfig.class
