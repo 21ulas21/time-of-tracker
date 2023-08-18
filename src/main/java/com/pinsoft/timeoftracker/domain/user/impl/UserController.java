@@ -13,7 +13,6 @@ import java.util.List;
 @RequestMapping("/users")
 @AllArgsConstructor
 @SecurityRequirement(name = "bearerAuth")
-
 public class UserController {
 
 
