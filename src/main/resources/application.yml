@@ -4,7 +4,7 @@ spring:
   main:
     allow-circular-references: true
   datasource:
-    url: jdbc:postgresql://postgres:5432/time-off-tracker # url: jdbc:postgresql://postgres:5432/time-off-tracker
+    url: jdbc:postgresql://postgresql:5432/time-off-tracker # url: jdbc:postgresql://postgres:5432/time-off-tracker
     username: postgres
     password: postgres # postgres
     driver-class-name: org.postgresql.Driver
