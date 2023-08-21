@@ -7,11 +7,15 @@ import com.pinsoft.timeoftracker.domain.user.impl.User;
 import com.pinsoft.timeoftracker.domain.user.impl.UserRequest;
 import com.pinsoft.timeoftracker.domain.user.impl.UserRole;
 import com.pinsoft.timeoftracker.domain.user.impl.UserServiceImpl;
+import com.pinsoft.timeoftracker.library.exception.WrongPasswordException;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 
 @Service
 @AllArgsConstructor
@@ -32,17 +36,20 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         var token = jwtService.generateToken(user);
 
         return AuthenticationResponse.builder()
-                .status(user.isStatus())
+                .role(user.getRole())
+                .status(user.getStatus())
                 .token(token)
                 .build();
     }
 
     @Override
-    public UserDto register(UserRequest request) {
-        User user =  userService.toEntity(new User(), request.toDto());
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+    public UserDto register(UserDto dto) {
+        User user =  userService.toEntity(new User(),dto);
         user.setRole(UserRole.EMPLOYEE);
+        user.setStatus(Boolean.TRUE);
         return userService.createUser(user);
     }
+
+
 
 }

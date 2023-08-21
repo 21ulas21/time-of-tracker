@@ -1,6 +1,7 @@
 package com.pinsoft.timeoftracker.domain.auth.config;
 
 import com.pinsoft.timeoftracker.domain.user.api.UserDto;
+import com.pinsoft.timeoftracker.domain.user.impl.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,9 +12,9 @@ import java.util.List;
 
 public class CustomUserDetails implements UserDetails {
 
-    private final UserDto user;
+    private final User user;
 
-    public CustomUserDetails(UserDto user) {
+    public CustomUserDetails(User user) {
         this.user = user;
     }
 
@@ -52,7 +53,7 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return user.isStatus();
+        return user.getStatus();
     }
 
 }

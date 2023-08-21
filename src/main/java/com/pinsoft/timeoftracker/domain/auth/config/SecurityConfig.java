@@ -26,7 +26,8 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         http.csrf().disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/auth/**",
+                .requestMatchers("/auth/register",
+                        "/auth/login",
                         "/swagger-resources",
                         "/swagger-resources/**",
                         "/configuration/**",
@@ -34,7 +35,7 @@ public class SecurityConfig {
                         "/webjars/**",
                         "/swagger-ui.html",
                         "/v3/api-docs/**").permitAll()
-                .anyRequest().authenticated()
+                .anyRequest().permitAll()
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)

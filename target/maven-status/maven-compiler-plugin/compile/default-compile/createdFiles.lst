@@ -24,10 +24,8 @@ com\pinsoft\timeoftracker\domain\timeoff\impl\TimeOffResponse.class
 com\pinsoft\timeoftracker\domain\user\api\UserService.class
 com\pinsoft\timeoftracker\domain\user\impl\UserResponse$UserResponseBuilder.class
 com\pinsoft\timeoftracker\domain\timeoff\api\TimeOffDto$TimeOffDtoBuilder.class
-com\pinsoft\timeoftracker\library\CorsConfig.class
 com\pinsoft\timeoftracker\domain\timeoff\impl\TimeOffServiceImpl.class
 com\pinsoft\timeoftracker\domain\user\impl\UserRepository.class
-com\pinsoft\timeoftracker\library\SwaggerConfig.class
 com\pinsoft\timeoftracker\domain\timeoff\api\TimeOffService.class
 com\pinsoft\timeoftracker\library\entity\AbstractEntity.class
 com\pinsoft\timeoftracker\domain\auth\config\ApplicationConfig.class

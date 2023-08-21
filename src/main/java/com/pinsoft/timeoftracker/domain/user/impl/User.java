@@ -34,7 +34,7 @@ public class User extends AbstractEntity {
     @Column(name = COL_PASSWORD, nullable = false)
     private String password;
     @Column(name = COL_STATUS)
-    private boolean status = true;
+    private Boolean status;
     @Enumerated(EnumType.STRING)
     @JoinColumn(name = COL_USER_ROLE)
     private UserRole role;
