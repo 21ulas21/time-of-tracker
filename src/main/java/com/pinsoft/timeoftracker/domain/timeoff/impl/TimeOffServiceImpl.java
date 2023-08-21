@@ -22,8 +22,9 @@ public class TimeOffServiceImpl implements TimeOffService {
 
     @Override
     public TimeOffDto createTimeOff(TimeOffDto dto) {
-        TimeOff timeOff = repository.save(toEntity(new TimeOff(), dto));
-        return toDto(timeOff);
+        TimeOff timeOff = toEntity(new TimeOff(), dto);
+        timeOff.setTimeOffType(TimeOffType.PENDING);
+        return toDto(repository.save(timeOff));
     }
 
     @Override
@@ -87,7 +88,6 @@ public class TimeOffServiceImpl implements TimeOffService {
 
         timeOff.setManager(dto.getManagerUser().getId() == null ? null : userService.getUserEntityById(dto.getManagerUser().getId()));
         timeOff.setEmployee(dto.getEmployeeUser().getId() == null ? null : userService.getUserEntityById(dto.getEmployeeUser().getId()));
-        timeOff.setTimeOffType(dto.getTimeOffType());
         timeOff.setDescription(dto.getDescription());
         timeOff.setStartDate(dto.getStartDate());
         timeOff.setEndDate(dto.getEndDate());

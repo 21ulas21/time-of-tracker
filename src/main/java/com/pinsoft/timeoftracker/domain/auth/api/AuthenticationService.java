@@ -7,6 +7,6 @@ import com.pinsoft.timeoftracker.domain.user.impl.UserRequest;
 
 public interface AuthenticationService {
     AuthenticationResponse login(AuthenticationRequest request);
-    UserDto register(UserRequest request);
+    UserDto register(UserDto dto);
 
 }

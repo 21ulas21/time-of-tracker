@@ -2,8 +2,12 @@ package com.pinsoft.timeoftracker.domain.user.impl;
 
 import com.pinsoft.timeoftracker.domain.user.api.UserDto;
 import com.pinsoft.timeoftracker.domain.user.api.UserService;
+import com.pinsoft.timeoftracker.library.exception.WrongPasswordException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,6 +17,7 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository repository;
+    private final BCryptPasswordEncoder passwordEncoder;
 
 
     public UserDto createUser(User user) {
@@ -36,11 +41,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto updateUser(String id, UserDto userDto) {
-        return repository.findById(id)
-                .map(user -> toEntity(user, userDto))
-                .map(repository::save)
-                .map(this::toDto)
-                .orElseThrow(EntityNotFoundException::new);
+        User user = repository.findById(id).orElseThrow(EntityNotFoundException::new);
+        user.setEmail(userDto.getEmail());
+        user.setFirstName(userDto.getFirstName());
+        user.setLastName(userDto.getLastName());
+       return toDto(repository.save(user));
     }
 
     @Override
@@ -65,18 +70,38 @@ public class UserServiceImpl implements UserService {
             repository.delete(user);
     }
 
+    @Override
+    public UserDto getAuthenticatedUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = getUserEntityByEmail(authentication.getName());
+        return toDto(user);
+    }
+
     public User getUserEntityById(String id) {
         return repository.findById(id).orElseThrow(EntityNotFoundException::new);
+    }
+    @Override
+    public void changePassword(String oldPassword, String password){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = getUserEntityByEmail(authentication.getName());
+
+        if (passwordEncoder.matches(oldPassword, user.getPassword())){
+
+            user.setPassword(passwordEncoder.encode(password));
+           createUser(user);
+        }else {
+            throw new WrongPasswordException("Eski şifreniz yanlış");
+        }
+
     }
 
 
     public User toEntity(User user, UserDto dto) {
-        user.setRole(dto.getRole());
         user.setFirstName(dto.getFirstName());
         user.setLastName(dto.getLastName());
         user.setEmail(dto.getEmail());
-        user.setPassword(dto.getPassword());
-        user.setStatus(true);
+        user.setPassword(passwordEncoder.encode(dto.getPassword()));
+        user.setStatus(dto.getStatus());
         return user;
     }
 
@@ -87,8 +112,7 @@ public class UserServiceImpl implements UserService {
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
                 .email(user.getEmail())
-                .password(user.getPassword())
-                .status(user.isStatus())
+                .status(user.getStatus())
                 .build();
     }
 
