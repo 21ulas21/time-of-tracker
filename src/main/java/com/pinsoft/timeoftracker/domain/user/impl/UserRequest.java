@@ -12,7 +12,6 @@ public class UserRequest {
     private final String lastName;
     private final String email;
     private final String password;
-    private final boolean status;
 
 
     public UserDto toDto() {
@@ -21,7 +20,6 @@ public class UserRequest {
                 .lastName(lastName)
                 .email(email)
                 .password(password)
-                .status(status)
                 .build();
     }
 

@@ -19,7 +19,6 @@ public class TimeOffRequest {
     private final Date startDate;
     @NotBlank(message = "Bitiş tarihini giriniz")
     private final Date endDate;
-    private final TimeOffType timeOffType;
 
     private final String employeeId;
 
@@ -29,7 +28,7 @@ public class TimeOffRequest {
         return TimeOffDto.builder()
                 .employeeUser(UserDto.builder().id(employeeId).build())
                 .managerUser(UserDto.builder().id(managerId).build())
-                .timeOffType(timeOffType)
+                .timeOffType(TimeOffType.PENDING)
                 .description(description)
                 .endDate(endDate)
                 .startDate(startDate)

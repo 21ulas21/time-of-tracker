@@ -13,9 +13,7 @@ public class UserDto {
     private final String lastName;
     private final String email;
     private final String password;
-    private final boolean status;
-    private final UserDto employee;
-    private final UserDto manager;
+    private final Boolean status;
     private final UserRole role;
 
 }

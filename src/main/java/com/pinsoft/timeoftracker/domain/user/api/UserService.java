@@ -16,4 +16,8 @@ public interface UserService {
     UserDto changeUserRole(String id, UserRole userRole);
 
     void deleteUserById(String id);
+
+    UserDto getAuthenticatedUser();
+
+    void changePassword(String oldPassword, String password);
 }

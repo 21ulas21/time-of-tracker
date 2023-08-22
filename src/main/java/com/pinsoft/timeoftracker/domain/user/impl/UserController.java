@@ -31,7 +31,7 @@ public class UserController {
         return ResponseEntity.ok(UserResponse.fromDto(result));
     }
 
-    @GetMapping()
+    @GetMapping("/get-manager-users")
     public ResponseEntity<List<UserResponse>> getUserByManagerRole() {
 
         List<UserResponse> userResponse = service.getUserByManagerRole()
@@ -50,6 +50,16 @@ public class UserController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable(value = "id")String id){
         service.deleteUserById(id);
+        return ResponseEntity.ok().build();
+    }
+    @GetMapping()
+    public ResponseEntity<UserResponse> getAuthenticatedUser(){
+        var user = service.getAuthenticatedUser();
+        return ResponseEntity.ok(UserResponse.fromDto(user));
+    }
+    @PostMapping("/password-changes")
+    public ResponseEntity<Void> changePassword(@RequestParam String oldPassword,@RequestParam String password){
+        service.changePassword(oldPassword, password);
         return ResponseEntity.ok().build();
     }
 

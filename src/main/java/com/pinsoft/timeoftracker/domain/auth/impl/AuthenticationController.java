@@ -2,14 +2,16 @@ package com.pinsoft.timeoftracker.domain.auth.impl;
 
 import com.pinsoft.timeoftracker.domain.auth.api.AuthenticationService;
 import com.pinsoft.timeoftracker.domain.user.impl.UserRequest;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
-
+@SecurityRequirement(name = "bearerAuth")
 public class AuthenticationController {
 
     private final AuthenticationService service;
@@ -21,8 +23,9 @@ public class AuthenticationController {
 
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody UserRequest request){
-        service.register(request);
+        service.register(request.toDto());
         return ResponseEntity.ok("Account Created");
     }
+
 
 }
