@@ -16,7 +16,13 @@ public class CorsConfig implements WebMvcConfigurer{
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("*"));
+        configuration.setAllowedOrigins(Arrays.asList("*","/swagger-resources",
+                "/swagger-resources/**",
+                "/configuration/**",
+                "/swagger-ui/**",
+                "/webjars/**",
+                "/swagger-ui.html",
+                "/v3/api-docs/**"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
         configuration.setAllowedHeaders(Arrays.asList("authorization", "content-type", "x-auth-token"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
