@@ -29,6 +29,7 @@ public class AuthenticationFilter extends OncePerRequestFilter {
         final String autheader = request.getHeader("Authorization");
         final String token;
         final String username;
+        System.out.println(request.getRequestURL());
 
         if (autheader == null || !autheader.startsWith("Bearer ")){
             filterChain.doFilter(request,response);
