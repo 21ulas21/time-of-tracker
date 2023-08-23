@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/auth")
 @RequiredArgsConstructor
 @SecurityRequirement(name = "bearerAuth")
+
 public class AuthenticationController {
 
     private final AuthenticationService service;

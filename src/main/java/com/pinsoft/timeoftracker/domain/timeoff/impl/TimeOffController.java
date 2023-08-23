@@ -13,7 +13,7 @@ import java.util.List;
 @RequestMapping("/time-off")
 @AllArgsConstructor
 @SecurityRequirement(name = "bearerAuth")
-@CrossOrigin("*")
+
 public class TimeOffController {
 
     private final TimeOffService service;
