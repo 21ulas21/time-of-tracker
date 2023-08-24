@@ -5,6 +5,7 @@ import com.pinsoft.timeoftracker.domain.user.api.UserService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -41,6 +42,7 @@ public class UserController {
         return ResponseEntity.ok(userResponse);
     }
     @PutMapping("/update/{id}")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<UserResponse> updateUserRole(@PathVariable(value = "id") String id, @RequestBody UserRole userRole){
 
         UserDto user = service.changeUserRole(id, userRole);
@@ -48,6 +50,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<Void> deleteUser(@PathVariable(value = "id")String id){
         service.deleteUserById(id);
         return ResponseEntity.ok().build();

@@ -5,6 +5,7 @@ import com.pinsoft.timeoftracker.domain.timeoff.api.TimeOffService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -44,6 +45,7 @@ public class TimeOffController {
     }
 
     @GetMapping()
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<List<TimeOffResponse>> getAllTimeOff() {
         List<TimeOffResponse> timeOffResponses = service
                 .getAllTimeOff()
