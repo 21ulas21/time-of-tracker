@@ -10,8 +10,8 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 @Component
-@Order(Ordered.HIGHEST_PRECEDENCE)
-public class CorsConfig implements Filter{
+//@Order(Ordered.HIGHEST_PRECEDENCE)
+public class CorsConfig{
 
  /*  @Bean
     public CorsConfigurationSource corsConfigurationSource() {
@@ -45,7 +45,7 @@ public class CorsConfig implements Filter{
         return source;
     }*/
 
-    public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
+  /*  public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
             throws IOException, ServletException {
         HttpServletResponse response = (HttpServletResponse) res;
         HttpServletRequest request = (HttpServletRequest) req;
@@ -71,7 +71,7 @@ public class CorsConfig implements Filter{
 
     public void destroy() {
         //not needed
-    }
+    }*/
 
 
 
