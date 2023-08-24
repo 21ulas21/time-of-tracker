@@ -6,6 +6,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
 
 
 import java.io.IOException;
@@ -13,7 +15,7 @@ import java.io.IOException;
 //@Order(Ordered.HIGHEST_PRECEDENCE)
 public class CorsConfig{
 
- /*  @Bean
+ /* @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.asList("*","/swagger-resources",
