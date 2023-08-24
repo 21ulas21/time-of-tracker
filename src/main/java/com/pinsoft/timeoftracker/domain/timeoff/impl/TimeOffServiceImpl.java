@@ -23,7 +23,6 @@ public class TimeOffServiceImpl implements TimeOffService {
     @Override
     public TimeOffDto createTimeOff(TimeOffDto dto) {
         TimeOff timeOff = toEntity(new TimeOff(), dto);
-        timeOff.setTimeOffType(TimeOffType.PENDING);
         return toDto(repository.save(timeOff));
     }
 
@@ -85,18 +84,19 @@ public class TimeOffServiceImpl implements TimeOffService {
     }
 
     public TimeOff toEntity(TimeOff timeOff, TimeOffDto dto) {
-
         timeOff.setManager(dto.getManagerUser().getId() == null ? null : userService.getUserEntityById(dto.getManagerUser().getId()));
-        timeOff.setEmployee(dto.getEmployeeUser().getId() == null ? null : userService.getUserEntityById(dto.getEmployeeUser().getId()));
+        timeOff.setEmployee(getAuthenticateUser());
         timeOff.setDescription(dto.getDescription());
         timeOff.setStartDate(dto.getStartDate());
         timeOff.setEndDate(dto.getEndDate());
+        timeOff.setTimeOffType(dto.getTimeOffType()==null ? TimeOffType.PENDING:dto.getTimeOffType());
 
         return timeOff;
     }
-    public String getAuthenticateUser(){
+    public User getAuthenticateUser(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return authentication.getName();
+        return userService.getUserEntityByEmail(authentication.getName());
+
     }
 
 
