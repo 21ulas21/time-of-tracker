@@ -16,7 +16,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 @RequiredArgsConstructor
 @EnableMethodSecurity
-
 public class SecurityConfig {
 
     private final AuthenticationFilter filter;
@@ -47,8 +46,9 @@ public class SecurityConfig {
         return http.build();
     }
 
-    @Bean
+   /* @Bean
     public SecurityFilterChain swaggerSecurityFilterChain(HttpSecurity http) throws Exception{
+
         http.csrf().disable().cors().disable()
                 .authorizeHttpRequests()
                 .requestMatchers(
@@ -68,7 +68,7 @@ public class SecurityConfig {
                 .authenticationProvider(provider)
                 .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
-    }
+    }*/
 
 
 
