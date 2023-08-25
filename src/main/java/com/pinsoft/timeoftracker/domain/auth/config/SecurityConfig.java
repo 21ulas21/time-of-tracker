@@ -46,30 +46,4 @@ public class SecurityConfig {
         return http.build();
     }
 
-   /* @Bean
-    public SecurityFilterChain swaggerSecurityFilterChain(HttpSecurity http) throws Exception{
-
-        http.csrf().disable().cors().disable()
-                .authorizeHttpRequests()
-                .requestMatchers(
-                        "/swagger-resources",
-                        "/swagger-resources/**",
-                        "/configuration/**",
-                        "/swagger-ui/**",
-                        "/webjars/**",
-                        "/swagger-ui.html",
-                        "/v3/api-docs/**")
-                .permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .authenticationProvider(provider)
-                .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
-        return http.build();
-    }*/
-
-
-
 }

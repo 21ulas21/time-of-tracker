@@ -1,8 +1,10 @@
 package com.pinsoft.timeoftracker.domain.user.impl;
 
+import com.pinsoft.timeoftracker.domain.user.PasswordChangeRequest;
 import com.pinsoft.timeoftracker.domain.user.api.UserDto;
 import com.pinsoft.timeoftracker.domain.user.api.UserService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -61,12 +63,13 @@ public class UserController {
         return ResponseEntity.ok(UserResponse.fromDto(user));
     }
     @PostMapping("/password-changes")
-    public ResponseEntity<Void> changePassword(@RequestParam String oldPassword,@RequestParam String password){
-        service.changePassword(oldPassword, password);
+    public ResponseEntity<Void> changePassword(@Valid @RequestBody PasswordChangeRequest request){
+        service.changePassword(request);
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/users/get-all")
+    @GetMapping("/get-all")
+
     public ResponseEntity<List<UserResponse>> getAllUser(){
         List<UserResponse> users = service.getAllUser().stream().map(UserResponse::fromDto).toList();
         return ResponseEntity.ok(users);

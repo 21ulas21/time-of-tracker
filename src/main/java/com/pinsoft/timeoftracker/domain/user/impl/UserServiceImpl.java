@@ -1,5 +1,6 @@
 package com.pinsoft.timeoftracker.domain.user.impl;
 
+import com.pinsoft.timeoftracker.domain.user.PasswordChangeRequest;
 import com.pinsoft.timeoftracker.domain.user.api.UserDto;
 import com.pinsoft.timeoftracker.domain.user.api.UserService;
 import com.pinsoft.timeoftracker.library.exception.WrongPasswordException;
@@ -86,16 +87,16 @@ public class UserServiceImpl implements UserService {
         return repository.findById(id).orElseThrow(EntityNotFoundException::new);
     }
     @Override
-    public void changePassword(String oldPassword, String password){
+    public void changePassword(PasswordChangeRequest request){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = getUserEntityByEmail(authentication.getName());
 
-        if (passwordEncoder.matches(oldPassword, user.getPassword())){
+        if (passwordEncoder.matches(request.getOldPassword(), user.getPassword())){
 
-            user.setPassword(passwordEncoder.encode(password));
-           createUser(user);
+            user.setPassword(passwordEncoder.encode(request.getNewPassword()));
+            repository.save(user);
         }else {
-            throw new WrongPasswordException("Eski şifreniz yanlış");
+            throw new WrongPasswordException("Your old password is incorrect");
         }
 
     }

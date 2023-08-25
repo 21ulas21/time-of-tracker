@@ -1,6 +1,7 @@
 package com.pinsoft.timeoftracker.domain.user.api;
 
 
+import com.pinsoft.timeoftracker.domain.user.PasswordChangeRequest;
 import com.pinsoft.timeoftracker.domain.user.impl.UserRole;
 
 import java.util.List;
@@ -19,7 +20,7 @@ public interface UserService {
 
     UserDto getAuthenticatedUser();
 
-    void changePassword(String oldPassword, String password);
+    void changePassword(PasswordChangeRequest request);
 
     List<UserDto> getAllUser();
 }
