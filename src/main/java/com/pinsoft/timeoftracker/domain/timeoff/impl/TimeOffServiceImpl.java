@@ -88,7 +88,6 @@ public class TimeOffServiceImpl implements TimeOffService {
 
     public TimeOff toEntity(TimeOff timeOff, TimeOffDto dto) {
         timeOff.setManager(userService.getUserEntityById(dto.getManagerUser().getId()));
-
         timeOff.setDescription(dto.getDescription());
         timeOff.setStartDate(dto.getStartDate());
         timeOff.setEndDate(dto.getEndDate());
@@ -96,11 +95,7 @@ public class TimeOffServiceImpl implements TimeOffService {
 
         return timeOff;
     }
-    public User getAuthenticateUser(){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return userService.getUserEntityByEmail(authentication.getName());
 
-    }
 
 
 }
