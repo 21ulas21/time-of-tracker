@@ -66,4 +66,11 @@ public class UserController {
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping("/users/get-all")
+    public ResponseEntity<List<UserResponse>> getAllUser(){
+        List<UserResponse> users = service.getAllUser().stream().map(UserResponse::fromDto).toList();
+        return ResponseEntity.ok(users);
+
+    }
+
 }

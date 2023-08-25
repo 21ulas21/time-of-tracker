@@ -13,14 +13,13 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/auth")
 @RequiredArgsConstructor
 @SecurityRequirement(name = "bearerAuth")
-@Slf4j
+
 public class AuthenticationController {
 
     private final AuthenticationService service;
 
     @PostMapping("/login")
     public ResponseEntity<AuthenticationResponse> login(@RequestBody AuthenticationRequest request){
-        log.info("controller");
         return ResponseEntity.ok(service.login(request));
     }
 

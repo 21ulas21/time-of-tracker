@@ -21,6 +21,7 @@ public class TimeOffController {
 
     @PostMapping()
     public ResponseEntity<TimeOffResponse> createTimeOff(@RequestBody TimeOffRequest request) {
+        System.out.println("controller");
         var timeOffDto = service.createTimeOff(request.toDto());
         return ResponseEntity.ok(TimeOffResponse.fromDto(timeOffDto));
     }

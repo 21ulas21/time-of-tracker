@@ -100,6 +100,11 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    @Override
+    public List<UserDto> getAllUser() {
+        return repository.findAll().stream().map(this::toDto).toList();
+    }
+
 
     public User toEntity(User user, UserDto dto) {
         user.setFirstName(dto.getFirstName());

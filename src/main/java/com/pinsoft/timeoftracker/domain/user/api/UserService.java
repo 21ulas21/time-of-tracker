@@ -20,4 +20,6 @@ public interface UserService {
     UserDto getAuthenticatedUser();
 
     void changePassword(String oldPassword, String password);
+
+    List<UserDto> getAllUser();
 }

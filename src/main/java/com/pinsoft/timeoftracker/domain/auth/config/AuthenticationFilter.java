@@ -18,7 +18,7 @@ import java.io.IOException;
 
 @Component
 @RequiredArgsConstructor
-@Slf4j
+
 public class AuthenticationFilter extends OncePerRequestFilter {
 
 
@@ -37,7 +37,6 @@ public class AuthenticationFilter extends OncePerRequestFilter {
 
         if (autheader == null || !autheader.startsWith("Bearer ")){
             filterChain.doFilter(request,response);
-            log.info(request.getRequestURI());
             return;
         }
 
@@ -45,6 +44,7 @@ public class AuthenticationFilter extends OncePerRequestFilter {
         username = jwtService.extractUsername(token);
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null){
             UserDetails userDetails = service.loadUserByUsername(username);
+            System.out.println(userDetails.getUsername() + " " + userDetails.getPassword());
             if (jwtService.isTokenValid(token, userDetails)){
 
                 UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
