@@ -24,7 +24,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
     private final UserServiceImpl userService;
-    private final PasswordEncoder passwordEncoder;
 
     @Override
     public AuthenticationResponse login(AuthenticationRequest request) {
