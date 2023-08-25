@@ -3,6 +3,7 @@ package com.pinsoft.timeoftracker.domain.user.impl;
 import com.pinsoft.timeoftracker.domain.user.api.UserDto;
 import com.pinsoft.timeoftracker.domain.user.api.UserService;
 import com.pinsoft.timeoftracker.library.exception.WrongPasswordException;
+import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -21,6 +22,10 @@ public class UserServiceImpl implements UserService {
 
 
     public UserDto createUser(User user) {
+
+        if (repository.existsUserByEmail(user.getEmail())){
+            throw new EntityExistsException("Email is already in user");
+        }
         return toDto(repository.save(user));
     }
 
