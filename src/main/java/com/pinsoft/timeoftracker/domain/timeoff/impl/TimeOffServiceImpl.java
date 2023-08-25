@@ -23,6 +23,9 @@ public class TimeOffServiceImpl implements TimeOffService {
     @Override
     public TimeOffDto createTimeOff(TimeOffDto dto) {
         TimeOff timeOff = toEntity(new TimeOff(), dto);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.getUserEntityByEmail(authentication.getName());
+        timeOff.setEmployee(user);
         return toDto(repository.save(timeOff));
     }
 
@@ -84,8 +87,8 @@ public class TimeOffServiceImpl implements TimeOffService {
     }
 
     public TimeOff toEntity(TimeOff timeOff, TimeOffDto dto) {
-        timeOff.setManager(dto.getManagerUser().getId() == null ? null : userService.getUserEntityById(dto.getManagerUser().getId()));
-        timeOff.setEmployee(getAuthenticateUser());
+        timeOff.setManager(userService.getUserEntityById(dto.getManagerUser().getId()));
+
         timeOff.setDescription(dto.getDescription());
         timeOff.setStartDate(dto.getStartDate());
         timeOff.setEndDate(dto.getEndDate());
