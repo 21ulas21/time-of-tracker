@@ -14,7 +14,6 @@ import java.util.List;
 @RequestMapping("/time-off")
 @AllArgsConstructor
 @SecurityRequirement(name = "bearerAuth")
-
 public class TimeOffController {
 
     private final TimeOffService service;
