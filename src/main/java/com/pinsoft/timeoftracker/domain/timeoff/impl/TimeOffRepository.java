@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface TimeOffRepository extends JpaRepository<TimeOff, String> {
 
-    List<TimeOff> findTimeOffByManager(User user);
+    List<TimeOff> findTimeOffByManagerId(String id);
 }

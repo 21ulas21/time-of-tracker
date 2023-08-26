@@ -70,7 +70,7 @@ public class TimeOffServiceImpl implements TimeOffService {
     public List<TimeOffDto> getTimeOffForManager() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.getUserEntityByEmail(authentication.getName());
-      return repository.findTimeOffByManager(user).stream().map(this::toDto).toList();
+      return repository.findTimeOffByManagerId(user.getId()).stream().map(this::toDto).toList();
 
     }
 
