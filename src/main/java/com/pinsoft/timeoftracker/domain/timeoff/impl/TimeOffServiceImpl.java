@@ -74,6 +74,16 @@ public class TimeOffServiceImpl implements TimeOffService {
 
     }
 
+    @Override
+    public List<TimeOffDto> getMyTimeOff() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.getUserEntityByEmail(authentication.getName());
+        return repository.findTimeOffByEmployeeId(user.getId())
+                .stream()
+                .map(this::toDto)
+                .toList();
+    }
+
     public TimeOffDto toDto(TimeOff timeOff) {
         return TimeOffDto.builder()
                 .startDate(timeOff.getStartDate())

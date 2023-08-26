@@ -70,4 +70,13 @@ public class TimeOffController {
                 .toList();
         return ResponseEntity.ok(timeOffResponses);
     }
+
+    @GetMapping("get-my-time-off")
+    public ResponseEntity<List<TimeOffResponse>> getMyTimeOff(){
+        List<TimeOffResponse> timeOffResponses = service.getMyTimeOff()
+                .stream()
+                .map(TimeOffResponse::fromDto)
+                .toList();
+        return ResponseEntity.ok(timeOffResponses);
+    }
 }

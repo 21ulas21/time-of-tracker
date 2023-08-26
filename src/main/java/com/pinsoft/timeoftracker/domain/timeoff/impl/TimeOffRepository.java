@@ -8,4 +8,5 @@ import java.util.List;
 public interface TimeOffRepository extends JpaRepository<TimeOff, String> {
 
     List<TimeOff> findTimeOffByManagerId(String id);
+    List<TimeOff> findTimeOffByEmployeeId(String id);
 }

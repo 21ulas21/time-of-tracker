@@ -19,10 +19,12 @@ public class TimeOffResponse {
     private final Date endDate;
     private final TimeOffType timeOffType;
     private final UserResponse employee;
+    private final UserResponse manager;
 
     public static TimeOffResponse fromDto(TimeOffDto dto){
         return TimeOffResponse.builder()
                 .employee(UserResponse.fromDto(dto.getEmployeeUser()))
+                .manager(UserResponse.fromDto(dto.getManagerUser()))
                 .timeOffType(dto.getTimeOffType())
                 .id(dto.getId())
                 .description(dto.getDescription())
