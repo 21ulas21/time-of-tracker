@@ -57,12 +57,14 @@ public class TimeOffController {
 
     @PutMapping("/update/{id}")
     public ResponseEntity<TimeOffResponse> updateTimeOffType(@PathVariable(value = "id") String id,
-                                                             @RequestBody TimeOffType timeOffType) {
-        TimeOffDto timeOff = service.updateTimeOffType(id, timeOffType);
+                                                             @RequestBody() TimeOffTypeRequest timeOffType) {
+        TimeOffType request = TimeOffType.valueOf(timeOffType.getTimeOffType().toUpperCase());
+        TimeOffDto timeOff = service.updateTimeOffType(id, request);
         return ResponseEntity.ok(TimeOffResponse.fromDto(timeOff));
     }
 
     @GetMapping("/for-managers")
+    @PreAuthorize("hasAnyAuthority('MANAGER')")
     public ResponseEntity<List<TimeOffResponse>> getTimeOffForManager(){
         List<TimeOffResponse> timeOffResponses = service.getTimeOffForManager()
                 .stream()

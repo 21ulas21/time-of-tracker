@@ -1,6 +1,7 @@
 package com.pinsoft.timeoftracker.domain.user.impl;
 
 import com.pinsoft.timeoftracker.domain.user.PasswordChangeRequest;
+import com.pinsoft.timeoftracker.domain.user.UserRoleRequest;
 import com.pinsoft.timeoftracker.domain.user.api.UserDto;
 import com.pinsoft.timeoftracker.domain.user.api.UserService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -45,9 +46,9 @@ public class UserController {
     }
     @PutMapping("/update/{id}")
     @PreAuthorize("hasAnyAuthority('ADMIN')")
-    public ResponseEntity<UserResponse> updateUserRole(@PathVariable(value = "id") String id, @RequestBody UserRole userRole){
-
-        UserDto user = service.changeUserRole(id, userRole);
+    public ResponseEntity<UserResponse> updateUserRole(@PathVariable(value = "id") String id, @RequestBody UserRoleRequest userRole){
+        UserRole request = UserRole.valueOf(userRole.getUserRole().toUpperCase());
+        UserDto user = service.changeUserRole(id, request);
         return ResponseEntity.ok(UserResponse.fromDto(user));
     }
 
@@ -69,7 +70,7 @@ public class UserController {
     }
 
     @GetMapping("/get-all")
-
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<List<UserResponse>> getAllUser(){
         List<UserResponse> users = service.getAllUser().stream().map(UserResponse::fromDto).toList();
         return ResponseEntity.ok(users);
