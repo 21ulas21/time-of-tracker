@@ -7,6 +7,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,10 +18,12 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
+
 @Component
 @RequiredArgsConstructor
-
 public class AuthenticationFilter extends OncePerRequestFilter {
+
+    Logger logger = LoggerFactory.getLogger(AuthenticationFilter.class);
 
 
 
@@ -34,6 +38,7 @@ public class AuthenticationFilter extends OncePerRequestFilter {
         final String autheader = request.getHeader("Authorization");
         final String token;
         final String username;
+        logger.info(String.valueOf(request.getRequestURL()));
 
         if (autheader == null || !autheader.startsWith("Bearer ")){
             filterChain.doFilter(request,response);
