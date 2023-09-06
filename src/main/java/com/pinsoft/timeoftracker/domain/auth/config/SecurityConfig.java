@@ -58,8 +58,14 @@ public class SecurityConfig {
                 "http://localhost:4200",
                 "http://localhost:8080",
                 "https://localhost:8080",
-                "http://time-off-tracker-production.up.railway.app/**",
-                "https://time-off-tracker-production.up.railway.app/**"));
+                "http://time-off-tracker-production.up.railway.app",
+                "http://time-off-tracker-production.up.railway.app/v3/api-docs/swagger-config",
+                "http://time-off-tracker-production.up.railway.app/swagger-ui/swagger-ui.css",
+                "http://time-off-tracker-production.up.railway.app/swagger-ui/index.css",
+                "http://time-off-tracker-production.up.railway.app/swagger-ui/swagger-ui-standalone-preset.js",
+                "http://time-off-tracker-production.up.railway.app/swagger-ui/swagger-initializer.js",
+                "http://time-off-tracker-production.up.railway.app/swagger-ui/swagger-ui-bundle.js"
+                ));
         corsConfiguration.setAllowedMethods(Arrays.asList("GET","POST","PATCH", "PUT", "DELETE", "OPTIONS", "HEAD"));
         corsConfiguration.setAllowCredentials(true);
         corsConfiguration.setAllowedHeaders(Arrays.asList("Authorization", "Requestor-Type"));
