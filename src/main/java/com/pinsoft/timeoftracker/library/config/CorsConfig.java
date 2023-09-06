@@ -19,10 +19,9 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
 
-@Component
-@Order(Ordered.HIGHEST_PRECEDENCE)
+
 //@EnableWebMvc
-public class CorsConfig implements Filter {
+public class CorsConfig {
 
   /*  @Override
     public void addCorsMappings(CorsRegistry registry){
@@ -70,7 +69,7 @@ public class CorsConfig implements Filter {
         return source;
     }*/
 
-   public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
+/*   public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
             throws IOException, ServletException {
         HttpServletResponse response = (HttpServletResponse) res;
         HttpServletRequest request = (HttpServletRequest) req;
@@ -96,7 +95,7 @@ public class CorsConfig implements Filter {
 
     public void destroy() {
         //not needed
-    }
+    }*/
 
 
 
